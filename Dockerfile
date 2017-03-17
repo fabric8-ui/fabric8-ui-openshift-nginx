@@ -30,7 +30,7 @@ ADD root /
 RUN chmod 777 /run.sh
 RUN chmod -R 777 /usr/share/nginx/html/
 RUN echo "nginx on CentOS7" > /usr/share/nginx/html/index.html
-RUN chmod 777 /run /var/log/nginx 
+RUN chmod 777 /run /var/log/nginx
 
 EXPOSE 8080
 
@@ -43,6 +43,9 @@ ADD root /
 RUN sed -i '2s/^/\/template.sh \/usr\/share\/nginx\/html \n/' /run.sh
 
 RUN rm /usr/share/nginx/html/*
+
+RUN chown 997 /run.sh /template.sh
+RUN chmod u+x /run.sh /template.sh
 
 USER 997
 
