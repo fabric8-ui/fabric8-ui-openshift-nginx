@@ -1,0 +1,17 @@
+FROM registry.centos.org/kbsingh/openshift-nginx:latest
+MAINTAINER "Pete Muir <pmuir@bleepbleep.org.uk>"
+
+ENV LANG=en_US.utf8
+
+USER root
+ADD root /
+
+# Add the templater to run.sh
+RUN sed -i '2s/^/\/template.sh \/usr\/share\/nginx\/html \n/' /run.sh
+
+RUN rm /usr/share/nginx/html/*
+
+COPY dist /usr/share/nginx/html
+
+RUN chown -R 997 /usr/share/nginx/html
+USER 997
