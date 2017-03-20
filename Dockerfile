@@ -14,9 +14,9 @@ RUN sed -i '2s/^/\/template.sh \/usr\/share\/nginx\/html \n/' /run.sh
 
 RUN rm /usr/share/nginx/html/*
 
-RUN chown 997 /run.sh /template.sh
+RUN chown nginx /run.sh /template.sh
 RUN chmod u+x /run.sh /template.sh
-RUN chown -R 997 /usr/share/nginx/html
-RUN chown -R 997 /var/log/nginx
+RUN chown -R nginx /usr/share/nginx/html
+RUN chown -R nginx /var/log/nginx
 
-USER 997
+USER nginx
