@@ -1,4 +1,4 @@
-FROM registry.centos.org//bamachrn/nginx-header:latest
+FROM registry.centos.org/bamachrn/nginx-header:latest
 MAINTAINER "Pete Muir <pmuir@bleepbleep.org.uk>"
 
 ENV LANG=en_US.utf8
