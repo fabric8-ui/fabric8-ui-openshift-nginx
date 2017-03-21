@@ -14,9 +14,12 @@ RUN sed -i '2s/^/\/template.sh \/usr\/share\/nginx\/html \n/' /run.sh
 
 RUN rm /usr/share/nginx/html/*
 
-RUN chown nginx /run.sh /template.sh
-RUN chmod u+x /run.sh /template.sh
-RUN chown -R nginx /usr/share/nginx/html
-RUN chown -R nginx /var/log/nginx
+ENV FABRIC8_USER_NAME=fabric8
+RUN useradd --no-create-home -s /bin/bash ${FABRIC8_USER_NAME}
 
-USER nginx
+RUN chown ${FABRIC8_USER_NAME} /run.sh /template.sh
+RUN chmod u+x /run.sh /template.sh
+RUN chown -R ${FABRIC8_USER_NAME} /usr/share/nginx/html
+RUN chown -R ${FABRIC8_USER_NAME} /var/log/nginx
+
+USER ${FABRIC8_USER_NAME}
