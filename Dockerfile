@@ -19,7 +19,7 @@ RUN useradd --no-create-home -s /bin/bash ${FABRIC8_USER_NAME}
 
 RUN chown ${FABRIC8_USER_NAME} /run.sh /template.sh
 RUN chmod +x /run.sh /template.sh
-RUN chmod -R 777 /usr/share/nginx/html
-RUN chmod -R 777 /var/log/nginx
+RUN chmod -R +rw /usr/share/nginx/html
+RUN chmod -R +rw /var/log/nginx
 
 USER ${FABRIC8_USER_NAME}
