@@ -17,9 +17,8 @@ RUN rm /usr/share/nginx/html/*
 ENV FABRIC8_USER_NAME=fabric8
 RUN useradd --no-create-home -s /bin/bash ${FABRIC8_USER_NAME}
 
-RUN chown ${FABRIC8_USER_NAME} /run.sh /template.sh
-RUN chmod +x /run.sh /template.sh
-RUN chmod -R +rw /usr/share/nginx/html
+RUN chmod +rx /run.sh /template.sh
+RUN chmod -R +r /usr/share/nginx/html
 RUN chmod -R +rw /var/log/nginx
 
 USER ${FABRIC8_USER_NAME}
