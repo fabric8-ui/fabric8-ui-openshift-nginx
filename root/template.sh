@@ -1,18 +1,12 @@
 #!/bin/bash
 
-function template () {
+function template() {
   infile=${1}
-  OUTDIR=${3}
+  outfile=${2}
   tmpfile=${infile}.tmp
-  if [ -n "${OUTDIR}" ]; then
-    outfile=${OUTDIR}/`basename ${infile}`
-  else
-    outfile=$infile
-    ARGS='$PROXY_PASS_URL'
-  fi
   echo "Templating ${infile} and saving as ${outfile}"
   sed "s/{{ .Env.\([a-zA-Z0-9_-]*\) }}/\${\1}/" < ${infile} > ${tmpfile}
-  envsubst "$ARGS" < ${tmpfile} > $outfile
+  envsubst $VARS < ${tmpfile} > $outfile
   rm ${tmpfile}
   echo ""
   echo "----------------"
@@ -22,7 +16,8 @@ function template () {
 }
 
 if [ -f $1 ]; then
-  template $1 $2
+  infile=${1}
+  template $infile $infile
 fi
 
 if [ -d $1 ]; then
@@ -30,12 +25,13 @@ if [ -d $1 ]; then
   INDIR="$1/config"
   mkdir -p ${OUTDIR}
 
+  shopt -s nullglob
   for infile in $INDIR/*; do
-    template ${infile} $2 ${OUTDIR}
+    outfile=${OUTDIR}/`basename ${infile}`
+    template ${infile} ${outfile}
   done
+
+  rm -rf $INDIR
 fi
 
-
-
-rm -rf $INDIR
 
