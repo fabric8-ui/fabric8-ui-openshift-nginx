@@ -1,4 +1,4 @@
-FROM registry.centos.org/kbsingh/openshift-nginx:latest
+FROM registry.centos.org/kbsingh/openshift-nginx:1.10.2
 MAINTAINER "Pete Muir <pmuir@bleepbleep.org.uk>"
 
 ENV LANG=en_US.utf8
