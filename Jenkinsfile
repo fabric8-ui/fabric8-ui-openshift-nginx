@@ -16,7 +16,7 @@ dockerNode{
             }
 
             stage ('push snapshot image'){
-                sh "docker push ${imageName}:${version}"
+                sh "docker push ${imageName}:${tempVersion}"
             }
         }
         stage('notify'){
