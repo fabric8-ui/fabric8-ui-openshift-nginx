@@ -1,7 +1,7 @@
 @Library('github.com/fabric8io/fabric8-pipeline-library@master')
 def utils = new io.fabric8.Utils()
 def flow = new io.fabric8.Fabric8Commands()
-def project = 'fabric8-ui/fabric8-openshift-nginx'
+def project = 'fabric8-ui/fabric8-ui-openshift-nginx'
 def tempVersion
 def imageName = 'fabric8/fabric8-openshift-nginx'
 
@@ -28,9 +28,9 @@ dockerNode{
             if (!pr){
                 error "no pull request number found so cannot comment on PR"
             }
-            def message = "@${changeAuthor} snapshot fabric8-openshift-nginx image is available for testing.  `docker pull ${imageName}:${tempVersion}`"
+            def message = "@${changeAuthor} snapshot fabric8-ui-openshift-nginx image is available for testing.  `docker pull ${imageName}:${tempVersion}`"
             container('docker'){
-                flow.addCommentToPullRequest(message, pr, "fabric8-ui/fabric8-openshift-nginx")
+                flow.addCommentToPullRequest(message, pr, "fabric8-ui/fabric8-ui-openshift-nginx")
             }
         }
       } else if (utils.isCD()){
