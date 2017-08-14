@@ -36,11 +36,10 @@ dockerNode{
       } else if (utils.isCD()){
         git "https://github.com/${project}.git"
         sh "git remote set-url origin git@github.com:${project}.git"
-
+        def version
+        version = utils.getLatestVersionFromTag()
+        
         container(name: 'docker') {
-          def version
-          version = utils.getLatestVersionFromTag()
-
           stage ('build snapshot image'){
               sh "docker build -t ${imageName}:${version} ."
           }
