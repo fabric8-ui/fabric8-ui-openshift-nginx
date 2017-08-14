@@ -7,6 +7,7 @@ def imageName = 'fabric8/fabric8-openshift-nginx'
 
 dockerNode{
       if (utils.isCI()){
+        checkout scm
         container(name: 'docker') {
             tempVersion = "SNAPSHOT-${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
 
@@ -33,6 +34,9 @@ dockerNode{
             }
         }
       } else if (utils.isCD()){
+        git "https://github.com/${project}.git"
+        sh "git remote set-url origin git@github.com:${project}.git"
+
         container(name: 'docker') {
           def version
           version = utils.getLatestVersionFromTag()
