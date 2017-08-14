@@ -37,8 +37,8 @@ dockerNode{
         git "https://github.com/${project}.git"
         sh "git remote set-url origin git@github.com:${project}.git"
         def version
-        version = utils.getLatestVersionFromTag()
-        
+        version = getNewVersion {}
+
         container(name: 'docker') {
           stage ('build snapshot image'){
               sh "docker build -t ${imageName}:${version} ."
