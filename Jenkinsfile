@@ -46,6 +46,7 @@ dockerNode{
 
           stage ('push snapshot image'){
               sh "docker push ${imageName}:${version}"
+              sh "docker tag ${imageName}:${version} ${imageName}:latest"
               sh "docker push ${imageName}:latest"
           }
         }
