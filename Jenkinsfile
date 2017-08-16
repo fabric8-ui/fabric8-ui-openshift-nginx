@@ -1,4 +1,4 @@
-@Library('github.com/fabric8io/fabric8-pipeline-library@master')
+@Library('github.com/hectorj2f/fabric8-pipeline-library@dockerbaseimage')
 def utils = new io.fabric8.Utils()
 def flow = new io.fabric8.Fabric8Commands()
 def project = 'fabric8-ui/fabric8-ui-openshift-nginx'
@@ -50,5 +50,20 @@ dockerNode{
               sh "docker push ${imageName}:latest"
           }
         }
+
+        updateDownstreamRepoDependencies(version)
       }
+}
+
+
+def updateDownstreamRepoDependencies(v) {
+  pushNewDockerImageTagChangePR {
+    propertyName = 'fabric8-openshift-nginx'
+    projects = [
+            'fabric8-ui/fabric8-ui'
+    ]
+    version = v
+    autoMerge = false
+    containerName = 'ui'
+  }
 }
