@@ -18,10 +18,10 @@ dockerNode{
             stage ('push snapshot image'){
                 sh "docker push ${imageName}:${tempVersion}"
             }
-
-            updateDownstreamRepoDependencies(tempVersion)
-
         }
+
+        updateDownstreamRepoDependencies(tempVersion)
+
         stage('notify'){
             def changeAuthor = env.CHANGE_AUTHOR
             if (!changeAuthor){
