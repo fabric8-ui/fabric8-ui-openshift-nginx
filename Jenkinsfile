@@ -61,12 +61,12 @@ dockerNode{
 
 def updateDownstreamRepoDependencies(v) {
   pushNewDockerImageTagChangePR {
-    propertyName = 'fabric8-openshift-nginx'
+    propertyName = 'fabric8/fabric8-openshift-nginx'
     projects = [
             'fabric8-ui/fabric8-ui'
     ]
     version = v
     autoMerge = false
-    containerName = 'ui'
+    containerName = 'clients'
   }
 }
