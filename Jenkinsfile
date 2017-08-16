@@ -1,4 +1,4 @@
-@Library('github.com/hectorj2f/fabric8-pipeline-library@dockerbaseimage5')
+@Library('github.com/hectorj2f/fabric8-pipeline-library@dockerbaseimage6')
 def utils = new io.fabric8.Utils()
 def flow = new io.fabric8.Fabric8Commands()
 def project = 'fabric8-ui/fabric8-ui-openshift-nginx'
