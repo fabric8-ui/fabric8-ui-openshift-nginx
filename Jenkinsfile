@@ -20,8 +20,6 @@ dockerNode{
             }
         }
 
-        updateDownstreamRepoDependencies(tempVersion)
-
         stage('notify'){
             def changeAuthor = env.CHANGE_AUTHOR
             if (!changeAuthor){
