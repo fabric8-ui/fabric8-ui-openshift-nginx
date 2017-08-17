@@ -1,4 +1,4 @@
-@Library('github.com/hectorj2f/fabric8-pipeline-library@dockerbaseimage9')
+@Library('github.com/hectorj2f/fabric8-pipeline-library@dockerbaseimage10')
 def utils = new io.fabric8.Utils()
 def flow = new io.fabric8.Fabric8Commands()
 def project = 'fabric8-ui/fabric8-ui-openshift-nginx'
@@ -60,6 +60,7 @@ dockerNode{
 def updateDownstreamRepoDependencies(v) {
   pushNewDockerImageTagChangePR {
     propertyName = 'fabric8\\/fabric8-openshift-nginx'
+    parentDockerfileLocation = 'Dockerfile.deploy'
     projects = [
             'fabric8-ui/fabric8-ui',
             'openshiftio/openshift.io'
