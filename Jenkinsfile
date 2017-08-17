@@ -1,4 +1,4 @@
-@Library('github.com/hectorj2f/fabric8-pipeline-library@dockerbaseimage12')
+@Library('github.com/fabric8io/fabric8-pipeline-library@master')
 def utils = new io.fabric8.Utils()
 def flow = new io.fabric8.Fabric8Commands()
 def project = 'fabric8-ui/fabric8-ui-openshift-nginx'
@@ -19,9 +19,6 @@ clientsTemplate{
                 sh "docker push ${imageName}:${tempVersion}"
             }
         }
-
-        updateDownstreamRepoDependencies(tempVersion)
-
 
         stage('notify'){
             def changeAuthor = env.CHANGE_AUTHOR
