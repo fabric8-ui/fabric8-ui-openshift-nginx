@@ -5,7 +5,7 @@ def project = 'fabric8-ui/fabric8-ui-openshift-nginx'
 def tempVersion
 def imageName = 'fabric8/fabric8-openshift-nginx'
 clientsTemplate{
-dockerNode{
+  dockerNode{
       if (utils.isCI()){
         checkout scm
         container(name: 'docker') {
@@ -54,7 +54,7 @@ dockerNode{
 
         updateDownstreamRepoDependencies(version)
       }
-}
+  }
 }
 
 def updateDownstreamRepoDependencies(v) {
