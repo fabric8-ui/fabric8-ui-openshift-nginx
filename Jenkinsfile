@@ -20,6 +20,9 @@ clientsTemplate{
             }
         }
 
+        updateDownstreamRepoDependencies(tempVersion)
+
+
         stage('notify'){
             def changeAuthor = env.CHANGE_AUTHOR
             if (!changeAuthor){
@@ -34,6 +37,8 @@ clientsTemplate{
                 flow.addCommentToPullRequest(message, pr, "fabric8-ui/fabric8-ui-openshift-nginx")
             }
         }
+
+
       } else if (utils.isCD()){
         git "https://github.com/${project}.git"
         sh "git remote set-url origin git@github.com:${project}.git"
