@@ -4,8 +4,8 @@ def flow = new io.fabric8.Fabric8Commands()
 def project = 'fabric8-ui/fabric8-ui-openshift-nginx'
 def tempVersion
 def imageName = 'fabric8/fabric8-openshift-nginx'
-
-dockerNode{
+clientsTemplate{
+  dockerNode{
       if (utils.isCI()){
         checkout scm
         container(name: 'docker') {
@@ -19,6 +19,7 @@ dockerNode{
                 sh "docker push ${imageName}:${tempVersion}"
             }
         }
+
         stage('notify'){
             def changeAuthor = env.CHANGE_AUTHOR
             if (!changeAuthor){
@@ -33,6 +34,8 @@ dockerNode{
                 flow.addCommentToPullRequest(message, pr, "fabric8-ui/fabric8-ui-openshift-nginx")
             }
         }
+
+
       } else if (utils.isCD()){
         git "https://github.com/${project}.git"
         sh "git remote set-url origin git@github.com:${project}.git"
@@ -50,5 +53,22 @@ dockerNode{
               sh "docker push ${imageName}:latest"
           }
         }
+
+        updateDownstreamRepoDependencies(version)
       }
+  }
+}
+
+def updateDownstreamRepoDependencies(v) {
+  pushNewDockerImageTagChangePR {
+    propertyName = 'fabric8\\/fabric8-openshift-nginx'
+    parentDockerfileLocation = 'Dockerfile.deploy'
+    projects = [
+            'fabric8-ui/fabric8-ui',
+            'openshiftio/openshift.io'
+    ]
+    version = v
+    autoMerge = false
+    containerName = 'clients'
+  }
 }
