@@ -1,4 +1,4 @@
-job-id: fabric8-ui-openshift-nginx
+job-id: openshift-nginx
 
 #the following are optional, can be left blank
 #defaults, where applicable are filled in
